@@ -17,3 +17,6 @@ data/
 log/
 node_modules/
 
+secret.js
+views/secret.vm
+nohup.out
