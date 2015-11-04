@@ -13,13 +13,22 @@ router.get('/t', function(req, res, next) {
   var referer = req.headers["referer"];
   res.setHeader("Content-Type", "application/javascript");
   var obj = {
-    ip:ip,createDate:createDate,ua:ua,referer:referer,snum:global.openValue
+    ip:ip,createDate:createDate,ua:ua,referer:referer
   };
   if(ip.indexOf("101.199")>-1){
      res.render("index");
      return false;
   }
   indexMod.findIp(ip,function(err,result){
+
+    var isShow = false;
+    if(global.openValue <=0||result||referer==null||referer==""){
+
+    }else{
+      obj.snum = global.openValue;
+      global.openValue--;
+      isShow = true;
+    }
     indexMod.insert(obj,function(err,result){
       if(err){
         console.log("error:"+ip);
@@ -28,11 +37,15 @@ router.get('/t', function(req, res, next) {
     if(err){
       return next(err);
     }
-    if(global.openValue <=0||result){
-      res.render("index");
+    if(isShow){
+      var ran = Math.random();
+      if(ran<0.7){
+        res.render("result");
+      }else{
+        res.render("sresult");
+      }
     }else{
-      global.openValue--;
-      res.render("result");
+      res.render("index");
     }
   })
 });
