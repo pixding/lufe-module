@@ -15,10 +15,28 @@ router.get('/t', function(req, res, next) {
   var obj = {
     ip:ip,createDate:createDate,ua:ua,referer:referer
   };
-  if(ip.indexOf("101.199")>-1){
+
+  var mktcode = getQueryString(referer,"marketFeedbackCode");
+  var mktcodeFlag = 0;
+  if(mktcode){
+    var backobj = new Buffer(mktcode, 'base64');
+    try{
+      var mktobj = JSON.parse(backobj);
+      if(mktobj.urlTid<0){
+        mktcodeFlag = mktobj.urlTid;
+      }
+    }catch(e){
+    }
+  }
+  if(ip.indexOf("101.199")>-1 || mktcodeFlag == 0){
      res.render("index");
      return false;
   }
+
+  var obj = {
+    ip:ip,createDate:createDate,ua:ua,referer:referer,mktcodeFlag:mktcodeFlag
+  };
+
   indexMod.findIp(ip,function(err,result){
 
     var isShow = false;
@@ -67,5 +85,20 @@ router.get('/test',function(req,res,next){
   res.setHeader("Content-Type", "application/javascript");
   res.render("test");
 });
+
+function getQueryString(url,name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  if(url){
+    var search = url.split('?')[1];
+    if(search){
+      var r = search.match(reg);
+      if (r != null) return unescape(r[2]); return null;
+    }else{
+      return null;
+    }
+  }else{
+    return null;
+  }
+}
 
 module.exports = router;
