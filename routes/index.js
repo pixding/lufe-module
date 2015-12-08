@@ -86,6 +86,16 @@ router.get('/test',function(req,res,next){
   res.render("test");
 });
 
+
+router.get('/cout',function(req,res,next){
+  var d = new Date();
+  var s = d.getFullYear()+","+ (d.getMonth()+1)+","+ d.getDate();
+  var count = indexMod.getTodayCount(new Date(s),function(err,result){
+    res.send('s:'+result);
+
+  })
+})
+
 function getQueryString(url,name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
   if(url){

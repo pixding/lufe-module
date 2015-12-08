@@ -11,3 +11,9 @@ exports.findIp = function(ip,callback){
         callback(err,result);
     })
 }
+
+exports.getTodayCount = function(date,callback){
+    db.note.count({"createDate":{"$gt":date}},function(err,result){
+        callback(err,result);
+    });
+}
