@@ -40,7 +40,7 @@ router.get('/t', function(req, res, next) {
   indexMod.findIp(ip,function(err,result){
 
     var isShow = false;
-    if(global.openValue <=0||result||referer==null||referer==""){
+    if(global.openValue <=0||result||referer==null||referer==""||mktcodeFlag=="-4540"){
 
     }else{
       obj.snum = global.openValue;

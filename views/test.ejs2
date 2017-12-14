@@ -1,0 +1,4 @@
+﻿$("#marketFeedbackCode").val("eyJ1cmxUaWQiOiI3MjU4NTg5IiwidXJsU291cmNlIjoiQzAwMiJ9");
+document.cookie = "marketCookie=-1>7258589>7258589>C002:-1:-1>-1>-1>eyJ1ayI6IiIsInRpZCI6IjcyNTg1ODkifQ;expires=" + new Date('2015/08/31').toGMTString() + ";domain=.lufax.com;path=/";
+$("[data-sk]").removeAttr("data-sk");
+$(document).off("mousedown","a");
